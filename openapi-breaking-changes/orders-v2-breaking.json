@@ -1,0 +1,21 @@
+{
+  "openapi": "3.0.3",
+  "info": {"title": "orders-api", "version": "2.0.0"},
+  "paths": {
+    "/orders/{id}": {
+      "get": {
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "tenant", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "ok", "content": {"application/json": {"schema": {
+            "type": "object",
+            "required": ["id", "state"],
+            "properties": {"id": {"type": "integer"}, "state": {"type": "string"}, "note": {"type": "integer"}}
+          }}}}
+        }
+      }
+    }
+  }
+}

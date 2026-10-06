@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16.4
+    environment:
+      POSTGRES_USER: pact
+      POSTGRES_PASSWORD: pact-local-only
+      POSTGRES_DB: pact
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pact"]
+      interval: 3s
+      retries: 20
+
+  broker:
+    image: pactfoundation/pact-broker:2.113.0-pactbroker2.113.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "9292:9292"
+    environment:
+      PACT_BROKER_DATABASE_URL: postgres://pact:pact-local-only@postgres/pact
+      PACT_BROKER_LOG_LEVEL: WARN
+      PACT_BROKER_PORT: "9292"

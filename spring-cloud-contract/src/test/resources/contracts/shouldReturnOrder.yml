@@ -1,0 +1,16 @@
+description: an existing order is returned
+request:
+  method: GET
+  url: /orders/42
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body:
+    id: 42
+    status: NEW
+  matchers:
+    body:
+      - path: $.status
+        type: by_regex
+        value: "NEW|PAID|SHIPPED"

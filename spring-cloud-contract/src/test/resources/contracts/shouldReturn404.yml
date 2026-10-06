@@ -1,0 +1,6 @@
+description: an unknown order is a 404
+request:
+  method: GET
+  url: /orders/99
+response:
+  status: 404

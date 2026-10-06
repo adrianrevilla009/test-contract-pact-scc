@@ -1,0 +1,24 @@
+{
+  "openapi": "3.0.3",
+  "info": {"title": "orders-api", "version": "1.1.0"},
+  "paths": {
+    "/orders/{id}": {
+      "get": {
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "integer"}},
+          {"name": "expand", "in": "query", "required": false, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "ok", "content": {"application/json": {"schema": {
+            "type": "object",
+            "required": ["id", "status"],
+            "properties": {"id": {"type": "integer"}, "status": {"type": "string"}, "note": {"type": "string"}, "total": {"type": "number"}}
+          }}}},
+          "404": {"description": "missing"}
+        }
+      },
+      "delete": {"responses": {"204": {"description": "deleted"}}}
+    },
+    "/orders": {"get": {"responses": {"200": {"description": "list"}}}}
+  }
+}

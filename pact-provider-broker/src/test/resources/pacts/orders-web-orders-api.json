@@ -1,0 +1,113 @@
+{
+  "consumer": {
+    "name": "orders-web"
+  },
+  "interactions": [
+    {
+      "comments": {
+        "testname": "lab.OrderClientPactTest.readsExistingOrder(MockServer)",
+        "text": [
+
+        ]
+      },
+      "description": "get order 42",
+      "key": "512275c2",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "order 42 exists"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/42"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "id": 42,
+            "status": "NEW"
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "NEW|PAID|SHIPPED"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "comments": {
+        "testname": "lab.OrderClientPactTest.missingOrderIsNull(MockServer)",
+        "text": [
+
+        ]
+      },
+      "description": "get missing order 99",
+      "key": "121cf251",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "order 99 does not exist"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/99"
+      },
+      "response": {
+        "status": 404
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.14"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "orders-api"
+  }
+}
